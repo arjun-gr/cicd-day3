@@ -55,3 +55,20 @@ jobs:
           context: .
           push: true
           tags: ${{secrets.USERNAME}}/my-app:latest
+
+  deploy-to-server:
+    needs: [testing-lint-nodejs, docker-setup]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ssh-to-server
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          usename: ${{secrets.LOGIN_USAERNAME}}
+          host: ${{secrets.HOST}}
+          key: ${{secrets.KEY}}
+
+          run: |
+            docker stop my-app || true
+            docker rm my-app || true
+            docker run -d -p 80:3000 --name my-app kaiju20/my-app:latest
