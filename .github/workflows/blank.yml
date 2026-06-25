@@ -64,8 +64,8 @@ jobs:
       - name: ssh-to-server
         uses: appleboy/ssh-action@v0.1.10
         with:
-          usename: ${{secrets.LOGIN_USAERNAME}}
           host: ${{secrets.HOST}}
+          username: ${{secrets.LOGIN_USAERNAME}}
           key: ${{secrets.KEY}}
 
           script: |
