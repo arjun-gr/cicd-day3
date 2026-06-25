@@ -23,6 +23,9 @@ jobs:
           cache: npm
           cache-dependency-directory: package-lock.json
 
+      - name: install-packages
+        run: num ci
+
       - name: linting
         run: npm run lint
 
